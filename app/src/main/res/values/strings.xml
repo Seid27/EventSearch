@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">EventSearch</string>
+    <string name="enter_artist_name">enter artist name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">home</string>
+    <string name="event_list">event_list</string>
+    <string name="home_h">Home</string>
+    <string name="search">Search</string>
+    <string name="saved">Saved</string>
+    <string name="your_spotify_top_artists">Your Spotify Top Artists</string>
+    <string name="your_recent_search">Your Recent Search</string>
+    <string name="event">Event:</string>
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="time_zone">Time Zone:</string>
+    <string name="venue_name">Venue Name:</string>
+    <string name="city">City:</string>
+    <string name="country_code">Country Code:</string>
+    <string name="address">Address:</string>
+    <string name="link">Link:</string>
+    <string name="country_city_state">Country/City/State</string>
+    <string name="no_event_for_this_artist">No event for this artist</string>
+</resources>
