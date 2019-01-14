@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.databind.ser.std.ObjectArraySerializer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -104,7 +105,6 @@ public class SearchResult extends Fragment {
         setRetainInstance(true);
         search_result_layout = v.findViewById(R.id.search_result_layout);
         recent_search = v.findViewById(R.id.recent_search);
-
         // getting saved data from shared prefercnce
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         SharedPreferences.Editor editor = preferences.edit();

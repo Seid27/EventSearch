@@ -8,10 +8,14 @@
     tools:context=".SpotifyTopArtists">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/your_spotify_top_artists"/>
+        android:text="@string/your_spotify_top_artists"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/textSize_20sp"
+        app:fontFamily="@font/centurygothic1" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

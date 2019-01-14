@@ -35,5 +35,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':spotify-app-remote-release-0.6.0')
     implementation project(':spotify-auth-release-1.1.0')
-    implementation project(':okhttp-3.12.1')
 }
