@@ -8,6 +8,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -59,6 +60,7 @@ public class EventInfoFragment extends Fragment {
 
     //fragment_event_info layout variables
     ImageView imageView;
+    ImageView calendar_img;
     TextView textView;
     EditText eventName;
     EditText eventDate;
@@ -92,6 +94,7 @@ public class EventInfoFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_event_info, container, false);
 
         imageView = v.findViewById(R.id.img_artist);
+        calendar_img = v.findViewById(R.id.calendar_img);
         textView = v.findViewById(R.id.name_artist);
         eventName = v.findViewById(R.id.event_name);
         eventDate = v.findViewById(R.id.event_date);
@@ -127,6 +130,29 @@ public class EventInfoFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        calendar_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_INSERT);
+                intent.setType("vnd.android.cursor.item/event");
+                String[] arrOfDateStr = eventDate.getText().toString().split("-");
+                Calendar startTime = Calendar.getInstance();
+                startTime.set(Integer.valueOf(arrOfDateStr[0]),Integer.valueOf(arrOfDateStr[1])-1,Integer.valueOf(arrOfDateStr[2]));
+                Log.d("valueofevent",Integer.valueOf(arrOfDateStr[1]).toString());
+                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime.getTimeInMillis());
+                intent.putExtra(CalendarContract.Events.TITLE, eventName.getText().toString());
+                Log.d("valueofevent",eventName.getText().toString() );
+                startActivity(intent);
+
+//                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime);
+//                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,endTime);
+                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+
+                intent.putExtra(CalendarContract.Events.DESCRIPTION, "This is a sample description");
+                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, "My Guest House");
+            }
+        });
 
         eventLink.setOnClickListener(new View.OnClickListener() {
             @Override

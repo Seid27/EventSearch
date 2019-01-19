@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="text"
+            android:fontFamily="@font/centurygothic1"
             android:hint="@string/enter_artist_name"/>
 
         <Button
@@ -38,11 +39,18 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/your_recent_search"/>
+            android:text="@string/your_recent_search"
+            android:textSize="20sp"
+            android:fontFamily="@font/centurygothic1"
+            android:textColor="@android:color/black"/>
+
         <TextView
             android:id="@+id/recent_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/centurygothic1"
+            android:textColor="#0645ad"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

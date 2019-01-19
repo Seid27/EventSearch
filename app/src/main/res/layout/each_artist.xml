@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/search"
-                android:scaleType="center" />
+                android:scaleType="center"/>
 
             <TextView
                 android:id="@+id/artist_name"
@@ -36,6 +36,8 @@
                 android:textSize="@dimen/textSize_20sp"
                 android:textStyle="bold|italic"
                 app:fontFamily="@font/centurygothic1" />
+
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

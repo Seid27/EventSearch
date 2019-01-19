@@ -25,11 +25,21 @@ public class TopArtist implements Parcelable{
 
     private String name;
     private JsonArray images;
+    private JsonArray genres;
     private String imageUrl;
+    private String genre;
 
     public TopArtist(JsonObject jsonObject) {
         this.name = String.valueOf(jsonObject.get("name"));
         this.images = (JsonArray) jsonObject.get("images");
+        this.genres = (JsonArray) jsonObject.get("genres");
+
+        if (genres.size() != 0){
+            genre = genres.get(0).getAsString();
+        }
+        else{
+            genre = null;
+        }
 
         if (images.size() != 0) {
             JsonObject artistImage = (JsonObject) images.get(1);
@@ -52,6 +62,10 @@ public class TopArtist implements Parcelable{
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getGenre() {
+        return genre;
     }
 
     @Override

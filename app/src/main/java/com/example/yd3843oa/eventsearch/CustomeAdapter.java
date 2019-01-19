@@ -37,10 +37,12 @@ public class CustomeAdapter extends RecyclerView.Adapter<CustomeAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView artistImg;
         TextView artistName;
+        TextView genre;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             artistImg = itemView.findViewById(R.id.artist_img);
             artistName = itemView.findViewById(R.id.artist_name);
+            genre = itemView.findViewById(R.id.artist_genre);
         }
     }
 
@@ -67,7 +69,13 @@ public class CustomeAdapter extends RecyclerView.Adapter<CustomeAdapter.MyViewHo
         else {
             Picasso.with(context).load(String.valueOf(topArtist.getImageUrl())).resize(350, 350).into(myViewHolder.artistImg);
         }
-        myViewHolder.artistName.setText(topArtist.getName());
+        myViewHolder.artistName.setText(topArtist.getName().replace("\"", ""));
+        if (topArtist.getGenre() != null) {
+            myViewHolder.genre.setText(topArtist.getGenre().replace("\"", ""));
+        }
+        else
+            myViewHolder.genre.setText("");
+
 
 
     }

@@ -20,20 +20,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/calendar_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/calendar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <android.support.v7.widget.CardView
                 android:id="@+id/card_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="128dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="128dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginEnd="272dp"
+                android:layout_marginRight="272dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.008"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
@@ -48,14 +62,14 @@
                 android:id="@+id/name_artist"
                 android:layout_width="wrap_content"
                 android:layout_height="21dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="140dp"
+                android:layout_marginEnd="212dp"
+                android:layout_marginRight="212dp"
+                android:layout_marginTop="136dp"
+                android:fontFamily="@font/centurygothic1"
                 android:text="FHGGHGHGHGH"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
@@ -76,6 +90,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/centurygothic1"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
                         android:text="@string/event" />
 
                     <EditText
@@ -83,6 +100,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:backgroundTint="@android:color/black"
+                        android:fontFamily="@font/centurygothic1"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
                         android:editable="false" />
                 </LinearLayout>
 
@@ -96,10 +117,17 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/centurygothic1"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
                         android:text="@string/date" />
 
                     <EditText
                         android:id="@+id/event_date"
+                        android:fontFamily="@font/centurygothic1"
+                        android:textColor="@android:color/black"
+                        android:backgroundTint="@android:color/black"
+                        android:textSize="16sp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -121,6 +149,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:fontFamily="@font/centurygothic1"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp"
                             android:text="@string/time" />
 
                         <EditText
@@ -128,6 +159,10 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:backgroundTint="@android:color/black"
+                            android:fontFamily="@font/centurygothic1"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp"
                             android:editable="false" />
 
                     </LinearLayout>
@@ -143,6 +178,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/centurygothic1"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp"
                             android:text="@string/time_zone" />
 
                         <EditText
@@ -150,6 +188,10 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
+                            android:backgroundTint="@android:color/black"
+                            android:fontFamily="@font/centurygothic1"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp"
                             android:editable="false" />
 
                     </LinearLayout>
@@ -164,15 +206,22 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:layout_weight="1"
-                        android:text="@string/country_city_state" />
+                        android:fontFamily="@font/centurygothic1"
+                        android:text="@string/country_city_state"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/country_city_state"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:backgroundTint="@android:color/black"
+                        android:fontFamily="@font/centurygothic1"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
                         android:editable="false" />
                 </LinearLayout>
 
@@ -185,6 +234,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/centurygothic1"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
                         android:text="@string/venue_name" />
 
                     <EditText
@@ -192,8 +244,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:editable="false"
-                        android:textSize="20dp" />
+                        android:backgroundTint="@android:color/black"
+                        android:fontFamily="@font/centurygothic1"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:editable="false" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -205,6 +260,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/centurygothic1"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
                         android:text="@string/link" />
 
                     <TextView
@@ -212,6 +270,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:fontFamily="@font/centurygothic1"
+                        android:textSize="16sp"
                         android:textColor="#0645ad" />
                 </LinearLayout>
 
@@ -276,11 +336,13 @@
             android:layout_marginTop="368dp"
             android:text="@string/no_event_for_this_artist"
             android:textAllCaps="false"
+            android:fontFamily="@font/gothic_bo"
             android:textColor="@android:color/black"
-            android:textSize="36sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
     </android.support.constraint.ConstraintLayout>
 

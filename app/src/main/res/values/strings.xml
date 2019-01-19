@@ -22,4 +22,5 @@
     <string name="link">Link:</string>
     <string name="country_city_state">Country/City/State</string>
     <string name="no_event_for_this_artist">No event for this artist</string>
+    <string name="add_to_calendar">Add to Calendar</string>
 </resources>
