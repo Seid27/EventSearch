@@ -1,14 +1,12 @@
 package com.example.yd3843oa.eventsearch;
 
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,14 +18,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fasterxml.jackson.databind.ser.std.ObjectArraySerializer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -232,7 +228,7 @@ public class SearchResult extends Fragment {
                 artist_search.setText("");
 
                 search_recyclerView = v.findViewById(R.id.search_recyclerView);
-                CustomeAdapter topArtistAdapter = new CustomeAdapter(searchResult,getContext());
+                CustomAdapter topArtistAdapter = new CustomAdapter(searchResult,getContext());
 
                 //Recycler view that displays the results of from search query
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(v.getContext().getApplicationContext());

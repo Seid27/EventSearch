@@ -1,26 +1,14 @@
 package com.example.yd3843oa.eventsearch;
 
-
-// This class contains attributes that replicate the objects of JSON responce from getTopArtists call.
-
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
+// This class contains attributes that replicate the
+// objects of JSON responce from getTopArtists call.
 public class TopArtist implements Parcelable{
 
     private String name;
@@ -29,6 +17,8 @@ public class TopArtist implements Parcelable{
     private String imageUrl;
     private String genre;
 
+
+    //TopArtist constructor
     public TopArtist(JsonObject jsonObject) {
         this.name = String.valueOf(jsonObject.get("name"));
         this.images = (JsonArray) jsonObject.get("images");
@@ -51,6 +41,24 @@ public class TopArtist implements Parcelable{
             }
         }
     }
+
+    private TopArtist(Parcel in) {
+        name = in.readString();
+        imageUrl = in.readString();
+        genre = in.readString();
+    }
+
+    public static final Creator<TopArtist> CREATOR = new Creator<TopArtist>() {
+        @Override
+        public TopArtist createFromParcel(Parcel in) {
+            return new TopArtist(in);
+        }
+
+        @Override
+        public TopArtist[] newArray(int size) {
+            return new TopArtist[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -75,6 +83,8 @@ public class TopArtist implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
+        parcel.writeString(name);
+        parcel.writeString(imageUrl);
+        parcel.writeString(genre);
     }
 }

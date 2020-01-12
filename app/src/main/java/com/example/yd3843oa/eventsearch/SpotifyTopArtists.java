@@ -13,13 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -41,18 +37,20 @@ public class SpotifyTopArtists extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_spotify_top_artists, container, false);
 
+        //gets values in the bundle
         Bundle bundle = getArguments();
 
         spotifyTopArtists = bundle.getParcelableArrayList("spotifyTopArtists");
         final RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        CustomeAdapter topArtistAdapter = new CustomeAdapter(spotifyTopArtists,getContext());
+        CustomAdapter topArtistAdapter = new CustomAdapter(spotifyTopArtists,getContext());
 
-        //Recycler view that displays the results of topArtists from a user's spotify account
+        //Recycler view that displays the results of topArtists in a card view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(topArtistAdapter);
 
+        //touch listener fot the recycleview
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -60,7 +58,7 @@ public class SpotifyTopArtists extends Fragment {
                 View v = recyclerView.getChildViewHolder(view).itemView;
                 TextView artist_name = v.findViewById(R.id.artist_name);
                 ImageView artist_image = v.findViewById(R.id.artist_img);
-                Log.d("artistName",artist_name.getText().toString());
+                //Log.d("artistName",artist_name.getText().toString());
 
 
                 Bitmap bitmap = ((BitmapDrawable)artist_image.getDrawable()).getBitmap();

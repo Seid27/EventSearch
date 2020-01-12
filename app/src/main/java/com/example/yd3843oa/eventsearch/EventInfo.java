@@ -3,7 +3,7 @@ package com.example.yd3843oa.eventsearch;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-public class EventInfo {
+public class  EventInfo {
     private String event = "";
     private String eventDate = "";
     private String eventTime = "";

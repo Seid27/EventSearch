@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     //navigation bar
     private BottomNavigationView nav;
 
+    //progress dialog while data is being collected from spotify API
     ProgressDialog dialog;
 
 
@@ -73,23 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
 
+        //Bottom navigation bar
         nav = (BottomNavigationView) findViewById(R.id.navigation);
         nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListner);
-
-
-        // I will use it for access token for lifecycle
-//        if (savedInstanceState != null) {
-//            Log.d("savedd",previousSearchResult);
-//            previousSearchResult = savedInstanceState.getString("previousSearch");
-//        }
-//
-//        if(previousSearchResult==null){
-//            recent_search.setVisibility(View.GONE);
-//        }
-//
-//        else{
-//            recent_search.setText(previousSearchResult);
-//        }
 
 
     }
@@ -123,30 +110,41 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
 
+        //use the interface Api class
         Api api = retrofit.create(Api.class);
 
         //getTopArtists scope requires an access token
+        //GET http request is sent to the SPotify api
         Call<JsonObject> call = api.getTopArtists("Bearer "+accessToken, String.valueOf(20));
         call.enqueue(new Callback<JsonObject>() {
                          @Override
                          public void onResponse(Call<JsonObject> call, @NonNull Response<JsonObject> response) {
-                             Log.d("onresponse", String.valueOf(response.code()));
+                             //Log.d("onresponse", String.valueOf(response.code()));
 
+                             //JSON resposnse from Spotify API
+                             //Store the response into a JsonArray
                              JsonArray artistArray = (JsonArray) response.body().get("items");
                              for (int i = 0; i < artistArray.size(); i++){
+
+                                 //initiate TopArtist class to store name, images, genres
                                  TopArtist topArtist = new TopArtist((JsonObject) artistArray.get(i));
+
+                                 //store topArtist object in spotifyTopArtists array
                                  spotifyTopArtists.add(topArtist);
-                                 Log.d("onresponse", String.valueOf(topArtist.getImageUrl()));
+                                 //Log.d("onresponse", String.valueOf(topArtist.getImageUrl()));
                              }
 
 
 
+                             // spotifyTopArtists array is sent to SpotifyTopArtists fragment
                              Bundle bundleList = new Bundle();
                              bundleList.putParcelableArrayList("spotifyTopArtists", spotifyTopArtists);
                              Log.d("sizeOf", String.valueOf(spotifyTopArtists.size()));
-                             //need too change, may be
+
                              SpotifyTopArtists spotifyArtists = new SpotifyTopArtists();
                              spotifyArtists.setArguments(bundleList);
+
+                             //SpotifyTopArtists fragment is shown on the screen
                              getSupportFragmentManager().beginTransaction().replace(R.id.top_artists,
                                      spotifyArtists, "fragment_spotify_top_artists").commit();
                              dialog.dismiss();
@@ -160,30 +158,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-//        OkHttpClient client = new OkHttpClient.Builder().protocols(Arrays.asList(Protocol.HTTP_1_1)).build();
-//
-//        HttpUrl.Builder urlBuilder = HttpUrl.parse("https://api.spotify.com/v1/me/top/artists").newBuilder();
-//        urlBuilder.addQueryParameter("limit", String.valueOf(20));
-//        String url = urlBuilder.build().toString();
-//
-//        Request request = new Request.Builder()
-//                .url("https://api.spotify.com/v1/me/top/artists")
-//                .addHeader("Authorization" , "Bearer "+ accessToken)
-//                .build();
-//
-//        client.newCall(request).enqueue(new okhttp3.Callback() {
-//            @Override
-//            public void onFailure(okhttp3.Call call, IOException e) {
-//                Log.d("onresponse", "failed");
-//            }
-//
-//            @Override
-//            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
-//                String ob = response.body().string();
-//                Log.d("onresponse", String.valueOf(ob));
-//            }
-//        });
-
     }
 
     @Override
@@ -191,11 +165,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // A token is sent back after AuthenticationRequest
-
         if (requestCode == REQUEST_CODE) {
             final AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
 
-            Log.d("This is my Token", response.getAccessToken());
+            //Log.d("This is my Token", response.getAccessToken());
             accessToken = response.getAccessToken();
         }
 
@@ -213,26 +186,35 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
+                        //if home button is clicked show spotifyArtists fragment
                         case R.id.home:
+
+                            //send spotifyTopArtists array to SpotifyTopArtists fragment
                             Bundle bundleList = new Bundle();
                             bundleList.putParcelableArrayList("spotifyTopArtists", spotifyTopArtists);
-                            //need too change, may be
+
                             SpotifyTopArtists spotifyArtists = new SpotifyTopArtists();
                             spotifyArtists.setArguments(bundleList);
                             getSupportFragmentManager().beginTransaction().replace(R.id.top_artists,
                                     spotifyArtists, "fragment_spotify_top_artists").commit();
                             return true;
 
+
+                            //if search button is clicked
                         case R.id.search:
                             Bundle bundle = new Bundle();
                             if (!accessToken.equals("")) {
+                                //send access token to searchResult fragment
                                 bundle.putString("accessToken", accessToken);
                                 SearchResult searchResult = new SearchResult();
                                 searchResult.setArguments(bundle);
+
+                                //switch screen to SearchResult fragment
                                 getSupportFragmentManager().beginTransaction().replace(R.id.top_artists,
                                         searchResult, "fragment_search_result").commit();
 
                             } else {
+                                //switch screen to SearchResult fragment
                                 getSupportFragmentManager().beginTransaction().replace(R.id.top_artists,
                                         (new SearchResult()), "fragment_search_result").commit();
                             }
@@ -260,3 +242,28 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
     }
 }
+
+
+//        OkHttpClient client = new OkHttpClient.Builder().protocols(Arrays.asList(Protocol.HTTP_1_1)).build();
+//
+//        HttpUrl.Builder urlBuilder = HttpUrl.parse("https://api.spotify.com/v1/me/top/artists").newBuilder();
+//        urlBuilder.addQueryParameter("limit", String.valueOf(20));
+//        String url = urlBuilder.build().toString();
+//
+//        Request request = new Request.Builder()
+//                .url("https://api.spotify.com/v1/me/top/artists")
+//                .addHeader("Authorization" , "Bearer "+ accessToken)
+//                .build();
+//
+//        client.newCall(request).enqueue(new okhttp3.Callback() {
+//            @Override
+//            public void onFailure(okhttp3.Call call, IOException e) {
+//                Log.d("onresponse", "failed");
+//            }
+//
+//            @Override
+//            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+//                String ob = response.body().string();
+//                Log.d("onresponse", String.valueOf(ob));
+//            }
+//        });

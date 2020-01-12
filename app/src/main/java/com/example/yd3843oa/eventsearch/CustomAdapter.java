@@ -1,35 +1,25 @@
 package com.example.yd3843oa.eventsearch;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
-public class CustomeAdapter extends RecyclerView.Adapter<CustomeAdapter.MyViewHolder> {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
     private List<TopArtist> topArtistsList;
     private Context context;
 
-    public CustomeAdapter(List<TopArtist> topArtistsList, Context context) {
+    public CustomAdapter(List<TopArtist> topArtistsList, Context context) {
         this.topArtistsList = topArtistsList;
         this.context = context;
     }
