@@ -16,6 +16,7 @@ public class EventInfoCustomAdapter extends RecyclerView.Adapter<EventInfoCustom
 
     private List<String> eventInfoList;
     private List<String> title;
+    private final int limit = 6;
 
     public EventInfoCustomAdapter(EventInfo event_Info){
         Log.d("resultList",event_Info.getEvent());
@@ -73,7 +74,8 @@ public class EventInfoCustomAdapter extends RecyclerView.Adapter<EventInfoCustom
 
     @Override
     public int getItemCount() {
-        return eventInfoList.size();
+
+            return eventInfoList.size();
     }
 
 

@@ -31,7 +31,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         //super.destroyItem(container, position, object);
-        ((ViewPager) container).removeView((View) object);
+        container.removeView((View) object);
     }
 
     @Override
@@ -62,6 +62,7 @@ public class CustomViewPagerAdapter extends PagerAdapter{
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(eventInfoCustomAdapter);
+
         container.addView(view);
         return view;
     }

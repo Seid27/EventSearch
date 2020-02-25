@@ -1,5 +1,6 @@
 package com.example.yd3843oa.eventsearch;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.arch.core.util.Function;
 import android.content.Context;
@@ -27,6 +28,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.JsonArray;
@@ -49,7 +52,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import me.relex.circleindicator.CircleIndicator;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
 import retrofit2.Call;
@@ -64,7 +70,6 @@ public class EventInfoFragment extends Fragment {
     String api_key = "ioFPg1YZl38GXmcMjAAMYTj3298jN59T";
 
     ImageView artist_img;
-    TextView textView;
 
     ConstraintLayout no_eventLayout;
     //CardView there_is_event;
@@ -73,13 +78,19 @@ public class EventInfoFragment extends Fragment {
     ProgressDialog dialog;
     private Handler handler;
     RecyclerView recyclerView;
+    String get_artist_Name;
+
+    RadioGroup radioGroup;
+
+    TextView page_num;
 
     List<EventInfo> eventInfoList = new ArrayList<EventInfo>();
 
     private Context context;
 
-    private ViewPager viewPager;
     CustomViewPagerAdapter mAdapter;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
 
     private final int delay = 2000;
     private int page = 0;
@@ -104,11 +115,11 @@ public class EventInfoFragment extends Fragment {
 
         //recyclerView = v.findViewById(R.id.event_info_recycler);
         artist_img = v.findViewById(R.id.artist_img);
-        textView = v.findViewById(R.id.event_artist_name);
 
         no_eventLayout = v.findViewById(R.id.no_eventLayout);
         event_viewpager = v.findViewById(R.id.event_viewpager);
         //there_is_event = v.findViewById(R.id.there_is_event);
+        page_num = v.findViewById(R.id.page_num);
         context = getContext();
 
         Bundle bundle = getArguments();
@@ -117,10 +128,12 @@ public class EventInfoFragment extends Fragment {
 
         artist_img.setImageBitmap(bitmap);
 
-        viewPager = v.findViewById(R.id.event_viewpager);
+        //radioGroup = v.findViewById(R.id.rariogroup);
 
-        //displays the artist name
-        textView.setText(bundle.getString("artistName"));
+
+
+        //get the artist name
+        get_artist_Name = bundle.getString("artistName");
 
         dialog = new ProgressDialog(getContext()); // this = YourActivity
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -157,7 +170,7 @@ public class EventInfoFragment extends Fragment {
 
         //http request to the ticketmaster api
         //to get event information for an artist
-        Call<JsonObject> call = api.getAttractions(api_key, textView.getText().toString(), "Music");
+        Call<JsonObject> call = api.getAttractions(api_key, get_artist_Name , "Music");
         //Log.d("onresponse2", String.valueOf(call.request()));
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -237,7 +250,7 @@ public class EventInfoFragment extends Fragment {
                     //no_eventLayout will be shown on screen
                     dialog.dismiss();
                     no_eventLayout.setVisibility(View.VISIBLE);
-                    viewPager.setVisibility(View.GONE);
+                    event_viewpager.setVisibility(View.GONE);
                     //there_is_event.setVisibility(View.GONE);
 
                 }
@@ -252,13 +265,66 @@ public class EventInfoFragment extends Fragment {
 
     }
 
+    @SuppressLint("SetTextI18n")
     public void setUpView(){
 
 
         mAdapter = new CustomViewPagerAdapter(context, eventInfoList);
 
+        event_viewpager.setAdapter(mAdapter);
 
-        viewPager.setAdapter(mAdapter);
+        page_num.setText("1/"+eventInfoList.size());
+        page_num.setVisibility(View.VISIBLE);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                page_num.setVisibility(View.GONE);
+            }
+        }, 2000);
+
+        event_viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                page_num.setText(String.valueOf(i+1)+"/"+eventInfoList.size());
+
+                if(page_num.getVisibility() != View.VISIBLE) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            page_num.setVisibility(View.VISIBLE);
+                        }
+                    }, 500);
+                }
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page_num.setVisibility(View.GONE);
+                    }
+                }, 2000);
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+
+
+        });
+
+
+
+        //radioGroup.addView(rb);
 
 
 
@@ -278,14 +344,6 @@ public class EventInfoFragment extends Fragment {
     }
 
 }
-
-
-
-
-
-
-
-
 
 
 
